@@ -29,10 +29,10 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
         self.__muted: bool = False
         self.__volume: int = 2
         self.__channel: int = TelevisionLogic.MIN_CHANNEL
-        self.__audio_output = QAudioOutput()
-        self.__player = QMediaPlayer()
+        self.__audio_output: QAudioOutput = QAudioOutput()
+        self.__player: QMediaPlayer = QMediaPlayer()
         self.__player.setAudioOutput(self.__audio_output)
-        self.__video_widget = QVideoWidget(parent=self.centralwidget)
+        self.__video_widget: QVideoWidget = QVideoWidget(parent=self.centralwidget)
         self.config_UI()
 
     def config_UI(self) -> None:
