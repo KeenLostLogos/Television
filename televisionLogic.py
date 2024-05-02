@@ -29,10 +29,10 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
         self.__muted: bool = False
         self.__volume: int = 2
         self.__channel: int = TelevisionLogic.MIN_CHANNEL
-        self.audio_output = QAudioOutput()
-        self.player = QMediaPlayer()
-        self.player.setAudioOutput(self.audio_output)
-        self.video_widget = QVideoWidget(parent=self.centralwidget)
+        self.__audio_output = QAudioOutput()
+        self.__player = QMediaPlayer()
+        self.__player.setAudioOutput(self.__audio_output)
+        self.__video_widget = QVideoWidget(parent=self.centralwidget)
         self.config_UI()
 
     def config_UI(self) -> None:
@@ -40,15 +40,15 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
         configures the User Interface and adds button functionality
         :return: None
         """
-        self.video_widget.setFixedSize(960, 400)
-        self.player.setVideoOutput(self.video_widget)
+        self.__video_widget.setFixedSize(960, 400)
+        self.__player.setVideoOutput(self.__video_widget)
         self.power_pushButton.clicked.connect(self.power)
         self.mute_pushButton.clicked.connect(self.mute)
         self.c_up_pushButton.clicked.connect(self.channel_up)
         self.c_down_pushButton.clicked.connect(self.channel_down)
         self.v_up_pushButton.clicked.connect(self.volume_up)
         self.v_down_pushButton.clicked.connect(self.volume_down)
-        self.audio_output.setVolume(self.__volume * 0.2)
+        self.__audio_output.setVolume(self.__volume * 0.2)
 
     def closeEvent(self, event) -> None:
         """
@@ -56,7 +56,7 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
         :param event: the Close event
         :return:
         """
-        self.player.stop()
+        self.__player.stop()
         event.accept()
 
     def new_channel(self) -> None:
@@ -64,10 +64,10 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
         updates the television to the new channel and displays the contents for that channel
         :return:
         """
-        self.player.stop()
+        self.__player.stop()
         time.sleep(.1)
-        self.player.setSource(QUrl.fromLocalFile(f"./videos/channel{self.__channel}.mp4"))
-        self.player.play()
+        self.__player.setSource(QUrl.fromLocalFile(f"./videos/channel{self.__channel}.mp4"))
+        self.__player.play()
 
     def power(self) -> None:
         """
@@ -78,7 +78,7 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
         if self.__status:
             self.new_channel()
         else:
-            self.player.stop()
+            self.__player.stop()
 
     def mute(self) -> None:
         """
@@ -88,7 +88,7 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
         if self.__status:
             self.__muted = not self.__muted
             self.volume_lcdNumber.display(self.__volume if not self.__muted else 0)
-            self.audio_output.setVolume(self.__volume * 0.2 if not self.__muted else 0)
+            self.__audio_output.setVolume(self.__volume * 0.2 if not self.__muted else 0)
 
     def channel_up(self) -> None:
         """
@@ -124,7 +124,7 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
 
             self.__volume = self.__volume + 1 if self.__volume != TelevisionLogic.MAX_VOLUME else TelevisionLogic.MAX_VOLUME
             self.volume_lcdNumber.display(self.__volume)
-            self.audio_output.setVolume(self.__volume * 0.2)
+            self.__audio_output.setVolume(self.__volume * 0.2)
 
     def volume_down(self) -> None:
         """
@@ -138,4 +138,4 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
 
             self.__volume = self.__volume - 1 if self.__volume != TelevisionLogic.MIN_VOLUME else TelevisionLogic.MIN_VOLUME
             self.volume_lcdNumber.display(self.__volume)
-            self.audio_output.setVolume(self.__volume * 0.2)
+            self.__audio_output.setVolume(self.__volume * 0.2)
