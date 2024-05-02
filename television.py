@@ -1,8 +1,5 @@
 import sys
-
-from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtWidgets import QApplication
-
 from televisionLogic import TelevisionLogic
 
 

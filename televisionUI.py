@@ -72,6 +72,7 @@ class Ui_MainWindow(object):
         self.channel_lcdNumber.setObjectName("channel_lcdNumber")
         self.volume_lcdNumber = QtWidgets.QLCDNumber(parent=self.centralwidget)
         self.volume_lcdNumber.setGeometry(QtCore.QRect(200, 420, 61, 51))
+        self.volume_lcdNumber.setProperty("intValue", 2)
         self.volume_lcdNumber.setObjectName("volume_lcdNumber")
         self.label = QtWidgets.QLabel(parent=self.centralwidget)
         self.label.setGeometry(QtCore.QRect(140, 400, 43, 13))
@@ -81,9 +82,6 @@ class Ui_MainWindow(object):
         self.label_2.setGeometry(QtCore.QRect(210, 400, 43, 13))
         self.label_2.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_2.setObjectName("label_2")
-        self.label_3 = QtWidgets.QLabel(parent=self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(360, 440, 391, 51))
-        self.label_3.setObjectName("label_3")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 960, 21))
@@ -103,7 +101,6 @@ class Ui_MainWindow(object):
         self.mute_pushButton.setText(_translate("MainWindow", "Mute"))
         self.label.setText(_translate("MainWindow", "Channel"))
         self.label_2.setText(_translate("MainWindow", "Volume"))
-        self.label_3.setText(_translate("MainWindow", "TextLabel"))
 
 
 if __name__ == "__main__":
