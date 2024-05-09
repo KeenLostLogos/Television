@@ -34,6 +34,7 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
         self.__player.setAudioOutput(self.__audio_output)
         self.__video_widget: QVideoWidget = QVideoWidget(parent=self.centralwidget)
         self.config_UI()
+        self.toggle_disabled()
 
     def config_UI(self) -> None:
         """
@@ -49,6 +50,13 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
         self.v_up_pushButton.clicked.connect(self.volume_up)
         self.v_down_pushButton.clicked.connect(self.volume_down)
         self.__audio_output.setVolume(self.__volume * 0.2)
+
+    def toggle_disabled(self, enabled=False):
+        self.c_up_pushButton.setEnabled(enabled)
+        self.c_down_pushButton.setEnabled(enabled)
+        self.v_up_pushButton.setEnabled(enabled)
+        self.v_down_pushButton.setEnabled(enabled)
+        self.mute_pushButton.setEnabled(enabled)
 
     def closeEvent(self, event) -> None:
         """
@@ -77,8 +85,10 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
         self.__status = not self.__status
         if self.__status:
             self.new_channel()
+            self.toggle_disabled(True)
         else:
             self.__player.stop()
+            self.toggle_disabled()
 
     def mute(self) -> None:
         """
