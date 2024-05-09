@@ -51,7 +51,12 @@ class TelevisionLogic(QMainWindow, Ui_MainWindow):
         self.v_down_pushButton.clicked.connect(self.volume_down)
         self.__audio_output.setVolume(self.__volume * 0.2)
 
-    def toggle_disabled(self, enabled=False):
+    def toggle_disabled(self, enabled=False) -> None:
+        """
+        changes the enable state of the volume and channel buttons
+        :param enabled: the state you want to set the buttons to
+        :return: None
+        """
         self.c_up_pushButton.setEnabled(enabled)
         self.c_down_pushButton.setEnabled(enabled)
         self.v_up_pushButton.setEnabled(enabled)
